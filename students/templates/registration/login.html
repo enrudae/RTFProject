@@ -1,24 +1,61 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'styles/styles_login.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+    <title>Логин</title>
 </head>
 <body>
-<form method="post">
-    {% csrf_token %}
-    <div>
-        <input type="text" name="username" id="username">
+
+
+<div class="container">
+
+    <div class="header">
+        <div class="container1">
+            <div class="header-line1">
+                <div class="header-logo">
+                    <img class="logotype" src="{% static 'icons/URFU.png' %}" alt="">
+                </div>
+                <div class="nav">
+                    <a class="nav-item228" href="">Выход</a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div>
-        <input type="password" name="password" id="password">
+    <div class="box-2">
+        <div class="forma">
+            <div class="txt">
+                <div class="p1">
+                    <p>Авторизация</p>
+                </div>
+                <div class="p2">
+                    <p>Выполнить вход, используя учетную запись организации</p>
+                </div>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="login">
+                    <input class="login_input" name="username" id="username" type="text" placeholder="Логин">
+                </div>
+                <div class="password">
+                    <input class="pass_input" name="password" id="password" type="password" placeholder="Пароль">
+                </div>
+
+                <div class="enter">
+                    <button class="but">Вход</button>
+                </div>
+            </form>
+            {{ form.errors }}
+        </div>
     </div>
-    <button>Войти</button>
-
-    {{ form.errors }}
-
-    <a href="{% url 'students:register' %}">Регистрация</a>
-</form>
+    <div class="box-3">
+        <p class="foot">
+            ©ФГАОУ ВО «УрФУ имени первого Президента России Б.Н.Ельцина»
+        </p>
+    </div>
+</div>
 </body>
 </html>

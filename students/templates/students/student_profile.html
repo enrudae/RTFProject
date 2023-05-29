@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'styles/student_profile.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+    <title>Title</title>
+</head>
+<body>
+<div class="web">
+
+    <div class="header">
+        <div class="container1">
+            <div class="header-line1">
+                <div class="header-logo">
+                    <img class="logotype" src="{% static 'icons/URFU.png' %}" alt="">
+                </div>
+                <div class="nav">
+                    <a class="nav-item1" href="{% url 'logout' %}">Выход</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="center">
+        <div class="columns">
+            <div class="left"></div>
+            <div class="area">
+                <div class="box-1">
+                    <div>
+
+                    </div>
+                    <div class="edit">
+                        <a href="{% url 'students:edit_student' student.id %}" class="btn btn-primary">
+                            <button class="but_edit">Редактировать</button>
+                        </a>
+                    </div>
+                    <div class="back">
+                        <a href="{% url 'students:all_students' %}" class="btn btn-primary">
+                            <button class="but_back">Назад</button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="boxes">
+                    <p class="full-box-title">ФИО</p>
+                    <p class="full_field">{{ student.last_name }} {{ student.first_name }} {{ student.patronymic|default:'' }}</p>
+
+                    <div class="boxx-4-1">
+                        <p class="full-box-title">Специальность</p>
+                        <p class="full-box-title">Год выпуска</p>
+
+                        <p class="full_field"> {{ student.specialization }}</p>
+                        <p class="full_field">{{ student.end_education_date }}</p>
+                    </div>
+
+                    {% if student.phone_number %}
+                        <p class="full-box-title">Номер телефона</p>
+                        <p class="full_field">{{ student.phone_number }}</p>
+                    {% endif %}
+
+                    {% if student.email %}
+                        <p class="full-box-title">Почта</p>
+                        <p class="full_field">{{ student.email }}</p>
+                    {% endif %}
+
+
+                    {% if student.group %}
+                        <p class="full-box-title">Академическая группа</p>
+                        <p class="full_field">{{ student.group }}</p>
+                    {% endif %}
+
+                    {% if student.education_form %}
+                        <p class="full-box-title">Форма обучения</p>
+                        <p class="full_field">{{ student.education_form }}</p>
+                    {% endif %}
+
+                    {% if student.education_form %}
+                        <p class="full-box-title">Ступень образования</p>
+                        <p class="full_field">{{ student.education_stage }}</p>
+                    {% endif %}
+
+                    {% if student.financing_form %}
+                        <p class="full-box-title">Форма финансирования</p>
+                        <p class="full_field">{{ student.financing_form }}</p>
+                    {% endif %}
+
+                    {% if student.citizenship %}
+                        <p class="full-box-title">Гражданство</p>
+                        <p class="full_field">{{ student.citizenship }}</p>
+                    {% endif %}
+
+                    {% if student.added_date %}
+                        <p class="full-box-title">Дата добавления</p>
+                        <p class="full_field">{{ student.added_date }}</p>
+                    {% endif %}
+
+                </div>
+            </div>
+            <div class="right"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="columns">
+            <div class="foot_left"></div>
+            <div class="foot_center">
+                <p class="foot">
+                    ©ФГАОУ ВО «УрФУ имени первого Президента России Б.Н.Ельцина»
+                </p>
+            </div>
+            <div class="foot_right"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{% spaceless %}
+    <input list="myList" name="education_stage">
+    <datalist>
+        {% for value in education_stages %}
+            <option value="{{ value }}"></option>
+        {% endfor %}
+    </datalist>
+{% endspaceless %}

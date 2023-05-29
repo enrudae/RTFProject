@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "Montserrat";
+    src: url("../fonts/Montserrat-Medium.woff") format("woff"),
+         url("../fonts/Montserrat-Medium.woff2") format("woff2");
+}
+
+body {
+  font-family: Montserrat;
+  margin: 0px 0px;
+}
+
+.header {
+    background: linear-gradient(90deg, #01458A 26.35%, #0070B9 103.67%);
+}
+
+.header-line1 {
+    padding: 18px 0px 18px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.nav-item1 {
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+.nav-item228 {
+    color: transparent;
+    text-decoration: none;
+    font-size: 22px;
+    visibility: hidden;
+    cursor: none;
+}

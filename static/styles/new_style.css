@@ -1,0 +1,163 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F4F4F4;
+}
+
+.container {
+    margin-top: 90px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F4F4F4;
+}
+
+.block {
+    width: 1300px;
+    height: 37px;
+    margin-bottom: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #F4F4F4;
+}
+
+.additional-blocks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.additional-block {
+    width: 1300px;
+    height: 70px;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    width: 141px;
+    margin-left: 10px;
+    height: 100%;
+}
+
+.sort-select {
+    width: 200px;
+    margin-left: 16px;
+    height: 100%;
+    border-radius: 10px;
+    padding: 5px 10px;
+    border-color: #ffffff;
+    display: flex;
+}
+
+.search-input {
+    width: 235px;
+    margin-left: 640px;
+    height: 90%;
+    border-radius: 10px;
+    padding: 0px 10px;
+    border-color: #BCBCBC;
+    display: flex;
+}
+
+.lupa {
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+.fio {
+    width: 350px;
+    margin-right: 170px;
+    margin-left: 10px;
+}
+
+.specialization {
+    width: 280px;
+    margin-right: 100px;
+}
+
+.year {
+    width: 37px;
+    margin-right: 169px;
+}
+
+.edit-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+}
+
+.blue-button {
+    background-image: linear-gradient(to right, #1F4586, #076BB1);
+    color: white;
+    padding: 5px 20px;
+    border-radius: 10px;
+    border: none;
+    height: 70%;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blue-button:active {
+  background-image: linear-gradient(to right, #1F4586, #1F4586);
+}
+
+
+.list-pages {
+	text-align: center;
+	margin: 0 0 20px 0;
+}
+.list-pages ul {
+	margin: 15px 0 0 0;
+	padding: 0;
+	list-style: none;
+}
+.list-pages ul li {
+	display: inline-block;
+	margin: 0 15px 0 0;
+}
+
+.list-pages li a {
+    display: inline-block;
+    margin: 0 15px 0 0;
+    width: 36px;
+    height: 36px;
+}
+
+.list-pages a {
+	color: #000;
+	font-size: 24px;
+    height: 100%;
+    width: 100%;
+	text-decoration: none;
+}
+.list-pages .page-num, .page-num-selected {
+	display: inline-block;
+	width: 36px;
+	height: 36px;
+	padding: 10px 0 0 0;
+    color: black;
+    background-color: #E7E7E7;
+	border: none;
+	border-radius: 10px;
+}
+.list-pages .page-num:hover {
+	background-color: #CECECE;
+}
+.list-pages .page-num-selected {
+	border: none;
+	color: white;
+    background-image: linear-gradient(to right, #1F4586, #076BB1);
+	font-size: 24px;
+}

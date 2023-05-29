@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'styles/new_style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+    <title>Студенты</title>
+</head>
+<body>
+
+<div class="header">
+    <div class="container1">
+        <div class="header-line1">
+            <div class="header-logo">
+                <img class="logotype" src="{% static 'icons/URFU.png' %}" alt="">
+            </div>
+            <div class="nav">
+                <a class="nav-item1" href="{% url 'logout' %}">Выход</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="block">
+        <a class="blue-button" href="{% url 'students:create_student' %}">Добавить</a>
+        <select class="sort-select">
+            <option disabled selected>Сортировать по</option>
+            <option>Опция 1</option>
+            <option>Опция 2</option>
+            <option>Опция 3</option>
+        </select>
+        <input type="text" class="search-input" placeholder="Placeholder">
+        <img src="{% static 'icons/lupa.png' %}" alt="Изображение" class="lupa">
+    </div>
+
+    <div class="additional-block">
+        <div class="fio">ФИО</div>
+        <div class="specialization">Специальность</div>
+        <div class="year">Год выпуска</div>
+        <div class="year">Редактировать</div>
+    </div>
+
+    <div class="additional-blocks">
+        {% for student in page_obj %}
+            <div class="additional-block">
+                <div class="fio">{{ student.last_name }} {{ student.first_name }} {{ student.patronymic|default:'' }}</div>
+                <div class="specialization">{{ student.specialization.code }} {{ student.specialization }}</div>
+                <div class="year">{{ student.end_education_date }}</div>
+                <a href="{% url 'students:student' student.id %}"><img src="{% static 'icons/edit-icon.png' %}"
+                                                                       alt="Редактировать" class="edit-icon"></a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% if page_obj.has_other_pages %}
+    <nav class="list-pages">
+        <ul>
+            {% if page_obj.has_previous %}
+                <li class="page-num">
+                    <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                </li>
+            {% endif %}
+
+            {% for p in page_obj.paginator.page_range %}
+                {% if page_obj.number == p %}
+                    <li class="page-num page-num-selected">{{ p }}</li>
+                {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+                    <li class="page-num">
+                        <a href="?page={{ p }}">{{ p }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <li class="page-num">
+                    <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+{% endif %}
+
+
+</body>
+</html>
