@@ -23,36 +23,48 @@
 </div>
 <form id="sort-form" method="GET" action="{% url 'students:all_students' %}">
     <div class="container">
+
         <div class="left_table">
             <div></div>
             <div></div>
             <div class="naming_filter">
                 <p class="label-title">Поиск по фильтрам</p>
             </div>
+
             <div class="dropdown-checkbox form-group">
                 <p class="label-title">Специальность</p>
                 <ul>
-                    <li><label><input type="checkbox" name="type[]">Программная инженерия</label></li>
-                    <li><label><input type="checkbox" name="type[]">ИВТ</label></li>
-                    <li><label><input type="checkbox" name="type[]">ИБ</label></li>
+                    {% for cat in form.specialization.field.queryset %}
+                        <li><label><input type="checkbox" name="specialization" value="{{ cat.title }}"
+                                          {% if cat in selected_filters %}checked="checked"{% endif %}>{{ cat.title }}
+                        </label></li>
+                    {% endfor %}
                 </ul>
             </div>
+
             <div class="dropdown-checkbox form-group">
                 <p class="label-title">Форма обучения</p>
                 <ul>
-                    <li><label><input type="checkbox" name="type[]">Очная</label></li>
-                    <li><label><input type="checkbox" name="type[]">Очно-заочная</label></li>
-                    <li><label><input type="checkbox" name="type[]">Заочная</label></li>
+                    {% for cat in form.education_form.field.queryset %}
+                        <li><label><input type="checkbox" name="education_form" value="{{ cat.title }}"
+                                          {% if cat in selected_filters %}checked="checked"{% endif %}>{{ cat.title }}
+                        </label></li>
+                    {% endfor %}
                 </ul>
             </div>
+
             <div class="dropdown-checkbox form-group">
-                <p class="label-title">Ступень образования</p>
+                <p class="label-title">Ступень обучения</p>
                 <ul>
-                    <li><label><input type="checkbox" name="type[]">Бакалавриат</label></li>
-                    <li><label><input type="checkbox" name="type[]">Специалитет</label></li>
-                    <li><label><input type="checkbox" name="type[]">Магистратура</label></li>
+                    {% for cat in form.education_stage.field.queryset %}
+                        <li><label><input type="checkbox" name="education_stage" value="{{ cat.title }}"
+                                          {% if cat in selected_filters %}checked="checked"{% endif %}>{{ cat.title }}
+                        </label></li>
+                    {% endfor %}
                 </ul>
             </div>
+
+
         </div>
 
         <div class="central">
@@ -108,8 +120,6 @@
             {% if page_obj.has_previous %}
                 <li class="page-num">
                     <a href="?page=
-
-
                             {{ page_obj.previous_page_number }}{% if query %}&query={{ query }}{% endif %}{% if sort_option %}&sort_option={{ sort_option }}{% endif %}">&lt;</a>
                 </li>
             {% endif %}
@@ -120,7 +130,6 @@
                 {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
                     <li class="page-num">
                         <a href="?page=
-
                                 {{ p }}{% if query %}&query={{ query }}{% endif %}{% if sort_option %}&sort_option={{ sort_option }}{% endif %}">{{ p }}</a>
                     </li>
                 {% endif %}
@@ -129,7 +138,6 @@
             {% if page_obj.has_next %}
                 <li class="page-num">
                     <a href="?page=
-
                             {{ page_obj.next_page_number }}{% if query %}&query={{ query }}{% endif %}{% if sort_option %}&sort_option={{ sort_option }}{% endif %}">></a>
                 </li>
             {% endif %}

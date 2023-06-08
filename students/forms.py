@@ -13,12 +13,26 @@ class CustomSelectWidget(forms.Select):
 
 
 class StudentCreationForm(ModelForm):
-    specialization = forms.ModelChoiceField(queryset=Specialization.objects.all(), to_field_name='title', required=False)
+    specialization = forms.ModelChoiceField(queryset=Specialization.objects.all(), to_field_name='title',
+                                            required=False)
     education_form = forms.ModelChoiceField(queryset=EducationForm.objects.all(), to_field_name='title', required=False)
-    education_stage = forms.ModelChoiceField(queryset=EducationStage.objects.all(), to_field_name='title', required=False)
+    education_stage = forms.ModelChoiceField(queryset=EducationStage.objects.all(), to_field_name='title',
+                                             required=False)
     financing_form = forms.ModelChoiceField(queryset=FinancingForm.objects.all(), to_field_name='title', required=False)
     citizenship = forms.ModelChoiceField(queryset=Citizenship.objects.all(), to_field_name='title', required=False)
 
     class Meta:
         model = Student
         exclude = ['is_deleted']
+
+
+class FilterForm(forms.Form):
+    specialization = forms.ModelMultipleChoiceField(queryset=Specialization.objects.all(),
+                                                    widget=forms.CheckboxSelectMultiple, to_field_name='title',
+                                                    required=False)
+    education_form = forms.ModelMultipleChoiceField(queryset=EducationForm.objects.all(),
+                                                    widget=forms.CheckboxSelectMultiple, to_field_name='title',
+                                                    required=False)
+    education_stage = forms.ModelMultipleChoiceField(queryset=EducationStage.objects.all(),
+                                                     widget=forms.CheckboxSelectMultiple, to_field_name='title',
+                                                     required=False)

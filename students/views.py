@@ -3,27 +3,45 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .models import Student, StudentParticipation, Specialization, EducationStage, EducationForm
-from students.forms import StudentCreationForm, RegisterForm
+from students.forms import StudentCreationForm, RegisterForm, FilterForm
 from django.core.paginator import Paginator
 from django.db.models import Q
 
 
 @login_required
 def all_students(request):
+    students = Student.objects.all()
+    form = FilterForm(request.GET)
+    selected_filters = []
+
+    if form.is_valid():
+        specializations = form.cleaned_data['specialization']
+        education_form = form.cleaned_data['education_form']
+        education_stage = form.cleaned_data['education_stage']
+
+        if specializations:
+            students = students.filter(specialization__in=specializations)
+            selected_filters += list(specializations)
+
+        if education_form:
+            students = students.filter(education_form__in=education_form)
+            selected_filters += list(education_form)
+
+        if education_stage:
+            students = students.filter(education_stage__in=education_stage)
+            selected_filters += list(education_stage)
+
     query = request.GET.get('query')
 
     if query:
-        students = Student.objects.filter(
+        students = students.filter(
             Q(first_name__iregex=query) |
             Q(last_name__iregex=query) |
             Q(patronymic__iregex=query) |
             Q(end_education_date__iregex=query) |
             Q(group__iregex=query) |
             Q(specialization__title__iregex=query)
-
         )
-    else:
-        students = Student.objects.all()
 
     sort_option = request.GET.get('sort_option')
 
@@ -38,7 +56,12 @@ def all_students(request):
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'students/students_table.html', {'page_obj': page_obj, 'sort_option': sort_option, 'query': query})
+
+    context = {
+        'page_obj': page_obj, 'sort_option': sort_option, 'query': query, 'form': form, 'selected_filters': selected_filters
+    }
+
+    return render(request, 'students/students_table.html', context)
 
 
 @login_required
