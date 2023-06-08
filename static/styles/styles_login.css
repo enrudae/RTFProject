@@ -145,3 +145,5 @@ body {
 .but:active {
   background-image: linear-gradient(to right, #1F4586, #1F4586);
 }
+.but:hover{
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), linear-gradient(90deg, #1F4586 0%, #076BB1 100%);  }

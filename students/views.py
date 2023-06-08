@@ -5,16 +5,40 @@ from django.views.generic import CreateView
 from .models import Student, StudentParticipation, Specialization, EducationStage, EducationForm
 from students.forms import StudentCreationForm, RegisterForm
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 @login_required
 def all_students(request):
-    students = Student.objects.all()
+    query = request.GET.get('query')
+
+    if query:
+        students = Student.objects.filter(
+            Q(first_name__iregex=query) |
+            Q(last_name__iregex=query) |
+            Q(patronymic__iregex=query) |
+            Q(end_education_date__iregex=query) |
+            Q(group__iregex=query) |
+            Q(specialization__title__iregex=query)
+
+        )
+    else:
+        students = Student.objects.all()
+
+    sort_option = request.GET.get('sort_option')
+
+    if sort_option == 'inc_year':
+        students = students.order_by('end_education_date')
+    elif sort_option == 'dec_year':
+        students = students.order_by('-end_education_date')
+    elif sort_option == 'inc_last_name':
+        students = students.order_by('last_name')
+
     paginator = Paginator(students, 10)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'students/students_table.html', {'page_obj': page_obj})
+    return render(request, 'students/students_table.html', {'page_obj': page_obj, 'sort_option': sort_option, 'query': query})
 
 
 @login_required

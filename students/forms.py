@@ -13,11 +13,11 @@ class CustomSelectWidget(forms.Select):
 
 
 class StudentCreationForm(ModelForm):
-    specialization = forms.ModelChoiceField(queryset=Specialization.objects.all(), to_field_name='title')
-    education_form = forms.ModelChoiceField(queryset=EducationForm.objects.all(), to_field_name='title')
-    education_stage = forms.ModelChoiceField(queryset=EducationStage.objects.all(), to_field_name='title')
-    financing_form = forms.ModelChoiceField(queryset=FinancingForm.objects.all(), to_field_name='title')
-    citizenship = forms.ModelChoiceField(queryset=Citizenship.objects.all(), to_field_name='title')
+    specialization = forms.ModelChoiceField(queryset=Specialization.objects.all(), to_field_name='title', required=False)
+    education_form = forms.ModelChoiceField(queryset=EducationForm.objects.all(), to_field_name='title', required=False)
+    education_stage = forms.ModelChoiceField(queryset=EducationStage.objects.all(), to_field_name='title', required=False)
+    financing_form = forms.ModelChoiceField(queryset=FinancingForm.objects.all(), to_field_name='title', required=False)
+    citizenship = forms.ModelChoiceField(queryset=Citizenship.objects.all(), to_field_name='title', required=False)
 
     class Meta:
         model = Student

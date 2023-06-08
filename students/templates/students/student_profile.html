@@ -45,8 +45,16 @@
                 </div>
 
                 <div class="boxes">
-                    <p class="full-box-title">ФИО</p>
-                    <p class="full_field">{{ student.last_name }} {{ student.first_name }} {{ student.patronymic|default:'' }}</p>
+                    <p class="full-box-title">Фамилия</p>
+                    <p class="full_field">{{ student.last_name }}</p>
+
+                    <p class="full-box-title">Имя</p>
+                    <p class="full_field">{{ student.first_name }}</p>
+
+                    {% if student.patronymic %}
+                        <p class="full-box-title">Отчество</p>
+                        <p class="full_field">{{ student.patronymic }}</p>
+                    {% endif %}
 
                     <div class="boxx-4-1">
                         <p class="full-box-title">Специальность</p>

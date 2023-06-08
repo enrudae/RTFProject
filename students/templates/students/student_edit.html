@@ -65,7 +65,7 @@
                             <p class="full-box-title">Специальность</p>
                             <p class="full-box-title">Год выпуска</p>
 
-                            <input class="full_field" list="specialization_list" name="specialization">
+                            <input class="full_field" list="specialization_list" name="specialization" {% if student.specialization %} value="{{ student.specialization }}" {% endif %}>
                             <datalist id="specialization_list">
                                 {% for value in form.specialization.field.queryset %}
                                     <option value="{{ value }}"></option>
@@ -89,7 +89,7 @@
 
 
                         <p class="full-box-title">Форма обучения</p>
-                        <input class="full_field" list="education_form_list" name="education_form">
+                        <input class="full_field" list="education_form_list" name="education_form" {% if student.education_form %} value="{{ student.education_form }}" {% endif %}>
                         <datalist id="education_form_list">
                             {% for value in form.education_form.field.queryset %}
                                 <option value="{{ value }}"></option>
@@ -98,17 +98,16 @@
 
 
                         <p class="full-box-title">Ступень образования</p>
-                        <input class="full_field" list="education_stage_list" name="education_stage">
+                        <input class="full_field" list="education_stage_list" name="education_stage" {% if student.education_stage %} value="{{ student.education_stage }}" {% endif %}>
                         <datalist id="education_stage_list">
                             {% for value in form.education_stage.field.queryset %}
-                                <option value="{{ value }}"
-                                        {% if value == student.education_stage %}selected{% endif %}></option>
+                                <option value="{{ value }}"></option>
                             {% endfor %}
                         </datalist>
 
 
                         <p class="full-box-title">Форма финансирования</p>
-                        <input class="full_field" list="financing_form_list" name="financing_form">
+                        <input class="full_field" list="financing_form_list" name="financing_form" {% if student.financing_form %} value="{{ student.financing_form }}" {% endif %}>
                         <datalist id="financing_form_list">
                             {% for value in form.financing_form.field.queryset %}
                                 <option value="{{ value }}"></option>
@@ -117,7 +116,7 @@
 
 
                         <p class="full-box-title">Гражданство</p>
-                        <input class="full_field" list="citizenship_list" name="citizenship">
+                        <input class="full_field" list="citizenship_list" name="citizenship" {% if student.citizenship %} value="{{ student.citizenship }}" {% endif %}>
                         <datalist id="citizenship_list">
                             {% for value in form.citizenship.field.queryset %}
                                 <option value="{{ value }}"></option>
