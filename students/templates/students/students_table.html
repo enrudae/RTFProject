@@ -63,8 +63,7 @@
                     {% endfor %}
                 </ul>
             </div>
-
-
+        <button class="filter-button">Применить</button>
         </div>
 
         <div class="central">
@@ -119,8 +118,7 @@
         <ul>
             {% if page_obj.has_previous %}
                 <li class="page-num">
-                    <a href="?page=
-                            {{ page_obj.previous_page_number }}{% if query %}&query={{ query }}{% endif %}{% if sort_option %}&sort_option={{ sort_option }}{% endif %}">&lt;</a>
+                    <a href="?{{ request.GET.urlencode }}&page={{ page_obj.previous_page_number }}">&lt;</a>
                 </li>
             {% endif %}
 
@@ -129,16 +127,14 @@
                     <li class="page-num page-num-selected">{{ p }}</li>
                 {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
                     <li class="page-num">
-                        <a href="?page=
-                                {{ p }}{% if query %}&query={{ query }}{% endif %}{% if sort_option %}&sort_option={{ sort_option }}{% endif %}">{{ p }}</a>
+                        <a href="?{{ request.GET.urlencode }}&page={{ p }}">{{ p }}</a>
                     </li>
                 {% endif %}
             {% endfor %}
 
             {% if page_obj.has_next %}
                 <li class="page-num">
-                    <a href="?page=
-                            {{ page_obj.next_page_number }}{% if query %}&query={{ query }}{% endif %}{% if sort_option %}&sort_option={{ sort_option }}{% endif %}">></a>
+                    <a href="?{{ request.GET.urlencode }}&page={{ page_obj.next_page_number }}">></a>
                 </li>
             {% endif %}
 
