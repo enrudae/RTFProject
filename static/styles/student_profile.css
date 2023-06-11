@@ -12,7 +12,7 @@ body {
 .web {
     display: grid;
     grid-template-rows: 110px auto 85px;
-    height: 150vh;
+    height: 155vh;
 }
 
 .header {
