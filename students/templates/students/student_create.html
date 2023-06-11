@@ -67,8 +67,8 @@
 
                             <input class="full_field" list="specialization_list" name="specialization">
                             <datalist id="specialization_list">
-                                {% for value in form.specialization.field.queryset %}
-                                    <option value="{{ value }}"></option>
+                                {% for specialization in specializations %}
+                                    <option value="{{ specialization }}"></option>
                                 {% endfor %}
                             </datalist>
                             <input class="full_field" name="end_education_date">
@@ -90,8 +90,8 @@
                         <p class="full-box-title">Форма обучения</p>
                         <input class="full_field" list="education_form_list" name="education_form">
                         <datalist id="education_form_list">
-                            {% for value in form.education_form.field.queryset %}
-                                <option value="{{ value }}"></option>
+                            {% for education_form in education_forms %}
+                                <option value="{{ education_form }}"></option>
                             {% endfor %}
                         </datalist>
 
@@ -99,16 +99,16 @@
                         <p class="full-box-title">Ступень образования</p>
                         <input class="full_field" list="education_stage_list" name="education_stage">
                         <datalist id="education_stage_list">
-                            {% for value in form.education_stage.field.queryset %}
-                                <option value="{{ value }}"></option>
+                            {% for education_stage in education_stages %}
+                                <option value="{{ education_stage }}"></option>
                             {% endfor %}
                         </datalist>
 
                         <p class="full-box-title">Форма финансирования</p>
                         <input class="full_field" list="financing_form_list" name="financing_form">
                         <datalist id="financing_form_list">
-                            {% for value in form.financing_form.field.queryset %}
-                                <option value="{{ value }}"></option>
+                            {% for financing_form in financing_forms %}
+                                <option value="{{ financing_form }}"></option>
                             {% endfor %}
                         </datalist>
 
@@ -116,8 +116,8 @@
                         <p class="full-box-title">Гражданство</p>
                         <input class="full_field" list="citizenship_list" name="citizenship">
                         <datalist id="citizenship_list">
-                            {% for value in form.citizenship.field.queryset %}
-                                <option value="{{ value }}"></option>
+                            {% for citizenship in citizenships %}
+                                <option value="{{ citizenship }}"></option>
                             {% endfor %}
                         </datalist>
 

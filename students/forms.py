@@ -4,22 +4,42 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
 
-class RegisterForm(UserCreationForm):
-    pass
-
-
 class CustomSelectWidget(forms.Select):
-    template_name = 'students/custom_select_widget.html'  # Путь к файлу шаблона виджета
+    template_name = 'students/custom_select_widget.html'
 
 
 class StudentCreationForm(ModelForm):
-    specialization = forms.ModelChoiceField(queryset=Specialization.objects.all(), to_field_name='title',
-                                            required=False)
-    education_form = forms.ModelChoiceField(queryset=EducationForm.objects.all(), to_field_name='title', required=False)
-    education_stage = forms.ModelChoiceField(queryset=EducationStage.objects.all(), to_field_name='title',
-                                             required=False)
-    financing_form = forms.ModelChoiceField(queryset=FinancingForm.objects.all(), to_field_name='title', required=False)
-    citizenship = forms.ModelChoiceField(queryset=Citizenship.objects.all(), to_field_name='title', required=False)
+    specialization = forms.CharField(required=False)
+    education_form = forms.CharField(required=False)
+    education_stage = forms.CharField(required=False)
+    financing_form = forms.CharField(required=False)
+    citizenship = forms.CharField(required=False)
+
+    def clean_field(self, field_name, model_class):
+        value = self.cleaned_data[field_name]
+
+        if value:
+            obj = model_class.objects.filter(title=value).first()
+            if not obj:
+                obj = model_class.objects.create(title=value)
+
+            return obj
+        return None
+
+    def clean_specialization(self):
+        return self.clean_field('specialization', Specialization)
+
+    def clean_education_form(self):
+        return self.clean_field('education_form', EducationForm)
+
+    def clean_education_stage(self):
+        return self.clean_field('education_stage', EducationStage)
+
+    def clean_financing_form(self):
+        return self.clean_field('financing_form', FinancingForm)
+
+    def clean_citizenship(self):
+        return self.clean_field('citizenship', Citizenship)
 
     class Meta:
         model = Student

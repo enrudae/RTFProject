@@ -2,8 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .models import Student, StudentParticipation, Specialization, EducationStage, EducationForm
-from students.forms import StudentCreationForm, RegisterForm, FilterForm
+from .models import Student, Specialization, EducationStage, EducationForm, FinancingForm, Citizenship
+from students.forms import StudentCreationForm, FilterForm
 from django.core.paginator import Paginator
 from django.db.models import Q
 
@@ -58,7 +58,8 @@ def all_students(request):
     page_obj = paginator.get_page(page_number)
 
     context = {
-        'page_obj': page_obj, 'sort_option': sort_option, 'query': query, 'form': form, 'selected_filters': selected_filters
+        'page_obj': page_obj, 'sort_option': sort_option, 'query': query, 'form': form,
+        'selected_filters': selected_filters
     }
 
     return render(request, 'students/students_table.html', context)
@@ -83,13 +84,23 @@ def create_student(request):
     else:
         form = StudentCreationForm()
 
-    return render(request, 'students/student_create.html', {'form': form})
+    specializations = Specialization.objects.all()
+    education_forms = EducationForm.objects.all()
+    education_stages = EducationStage.objects.all()
+    financing_forms = FinancingForm.objects.all()
+    citizenships = Citizenship.objects.all()
+
+    context = {
+        'form': form, 'specializations': specializations, 'education_forms': education_forms,
+        'education_stages': education_stages, 'financing_forms': financing_forms, 'citizenships': citizenships
+    }
+
+    return render(request, 'students/student_create.html', context)
 
 
 @login_required
 def edit_student(request, pk):
     student = get_object_or_404(Student, id=pk)
-    education_stages = EducationStage.objects.all()
 
     if request.method == 'POST':
         form = StudentCreationForm(request.POST, instance=student)
@@ -100,15 +111,15 @@ def edit_student(request, pk):
     else:
         form = StudentCreationForm(instance=student)
 
-    return render(request, 'students/student_edit.html',
-                  {'form': form, 'student': student, 'education_stages': education_stages})
+    specializations = Specialization.objects.all()
+    education_forms = EducationForm.objects.all()
+    education_stages = EducationStage.objects.all()
+    financing_forms = FinancingForm.objects.all()
+    citizenships = Citizenship.objects.all()
 
+    context = {
+        'form': form, 'student': student, 'specializations': specializations, 'education_forms': education_forms,
+        'education_stages': education_stages, 'financing_forms': financing_forms, 'citizenships': citizenships
+    }
 
-class RegisterView(CreateView):
-    form_class = RegisterForm
-    template_name = 'registration/register.html'
-    success_url = reverse_lazy('students:profile')
-
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+    return render(request, 'students/student_edit.html', context)
